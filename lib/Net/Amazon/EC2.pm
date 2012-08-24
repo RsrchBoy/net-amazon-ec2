@@ -1846,7 +1846,7 @@ sub describe_instances {
 					push @$tag_sets, $tag;
 				}
 
-				my $running_instance = Net::Amazon::EC2::RunningInstances->new(
+				my $running_instance = $self->running_instances_class->new(
 					ami_launch_index		=> $instance_elem->{amiLaunchIndex},
 					dns_name				=> $instance_elem->{dnsName},
 					image_id				=> $instance_elem->{imageId},
@@ -3860,7 +3860,7 @@ sub run_instances {
 
 			my $placement_response = Net::Amazon::EC2::PlacementResponse->new( availability_zone => $instance_elem->{placement}{availabilityZone} );
 			
-			my $running_instance = Net::Amazon::EC2::RunningInstances->new(
+			my $running_instance = $self->running_instances_class->new(
 				ami_launch_index		=> $instance_elem->{amiLaunchIndex},
 				dns_name				=> $instance_elem->{dnsName},
 				image_id				=> $instance_elem->{imageId},
@@ -4159,6 +4159,154 @@ sub unmonitor_instances {
  		return $monitored_instances;
 	}
 }
+
+=head1 ASSOCIATED CLASSES
+
+We provide a number of methods that return the name of an associated class, so
+that people extending this package may easily extend the associated classes by
+overriding or otherwise modifying these methods.
+
+=over 4
+
+=item attachment_class => Net::Amazon::EC2::Attachment
+
+=item availability_zone_class => Net::Amazon::EC2::AvailabilityZone
+
+=item availability_zone_message_class => Net::Amazon::EC2::AvailabilityZoneMessage
+
+=item block_device_mapping_class => Net::Amazon::EC2::BlockDeviceMapping
+
+=item bundle_instance_response_class => Net::Amazon::EC2::BundleInstanceResponse
+
+=item confirm_product_instance_response_class => Net::Amazon::EC2::ConfirmProductInstanceResponse
+
+=item console_output_class => Net::Amazon::EC2::ConsoleOutput
+
+=item create_volume_permission_class => Net::Amazon::EC2::CreateVolumePermission
+
+=item describe_address_class => Net::Amazon::EC2::DescribeAddress
+
+=item describe_image_attribute_class => Net::Amazon::EC2::DescribeImageAttribute
+
+=item describe_images_response_class => Net::Amazon::EC2::DescribeImagesResponse
+
+=item describe_instance_attribute_response_class => Net::Amazon::EC2::DescribeInstanceAttributeResponse
+
+=item describe_key_pairs_response_class => Net::Amazon::EC2::DescribeKeyPairsResponse
+
+=item describe_tags_class => Net::Amazon::EC2::DescribeTags
+
+=item ebs_block_device_class => Net::Amazon::EC2::EbsBlockDevice
+
+=item ebs_instance_block_device_mapping_class => Net::Amazon::EC2::EbsInstanceBlockDeviceMapping
+
+=item error_class => Net::Amazon::EC2::Error
+
+=item errors_class => Net::Amazon::EC2::Errors
+
+=item group_set_class => Net::Amazon::EC2::GroupSet
+
+=item instance_block_device_mapping_class => Net::Amazon::EC2::InstanceBlockDeviceMapping
+
+=item instance_password_class => Net::Amazon::EC2::InstancePassword
+
+=item instance_state_class => Net::Amazon::EC2::InstanceState
+
+=item instance_state_change_class => Net::Amazon::EC2::InstanceStateChange
+
+=item ip_permission_class => Net::Amazon::EC2::IpPermission
+
+=item ip_range_class => Net::Amazon::EC2::IpRange
+
+=item key_pair_class => Net::Amazon::EC2::KeyPair
+
+=item launch_permission_class => Net::Amazon::EC2::LaunchPermission
+
+=item launch_permission_operation_class => Net::Amazon::EC2::LaunchPermissionOperation
+
+=item monitored_instance_class => Net::Amazon::EC2::MonitoredInstance
+
+=item placement_response_class => Net::Amazon::EC2::PlacementResponse
+
+=item product_code_class => Net::Amazon::EC2::ProductCode
+
+=item product_instance_response_class => Net::Amazon::EC2::ProductInstanceResponse
+
+=item region_class => Net::Amazon::EC2::Region
+
+=item reservation_info_class => Net::Amazon::EC2::ReservationInfo
+
+=item reserved_instance_class => Net::Amazon::EC2::ReservedInstance
+
+=item reserved_instance_offering_class => Net::Amazon::EC2::ReservedInstanceOffering
+
+=item running_instances_class => Net::Amazon::EC2::RunningInstances
+
+=item security_group_class => Net::Amazon::EC2::SecurityGroup
+
+=item snapshot_class => Net::Amazon::EC2::Snapshot
+
+=item snapshot_attribute_class => Net::Amazon::EC2::SnapshotAttribute
+
+=item state_reason_class => Net::Amazon::EC2::StateReason
+
+=item tag_set_class => Net::Amazon::EC2::TagSet
+
+=item user_data_class => Net::Amazon::EC2::UserData
+
+=item user_id_group_pair_class => Net::Amazon::EC2::UserIdGroupPair
+
+=item volume_class => Net::Amazon::EC2::Volume
+
+=back
+
+=cut
+
+sub attachment_class                           { 'Net::Amazon::EC2::Attachment'                        }
+sub availability_zone_class                    { 'Net::Amazon::EC2::AvailabilityZone'                  }
+sub availability_zone_message_class            { 'Net::Amazon::EC2::AvailabilityZoneMessage'           }
+sub block_device_mapping_class                 { 'Net::Amazon::EC2::BlockDeviceMapping'                }
+sub bundle_instance_response_class             { 'Net::Amazon::EC2::BundleInstanceResponse'            }
+sub confirm_product_instance_response_class    { 'Net::Amazon::EC2::ConfirmProductInstanceResponse'    }
+sub console_output_class                       { 'Net::Amazon::EC2::ConsoleOutput'                     }
+sub create_volume_permission_class             { 'Net::Amazon::EC2::CreateVolumePermission'            }
+sub describe_address_class                     { 'Net::Amazon::EC2::DescribeAddress'                   }
+sub describe_image_attribute_class             { 'Net::Amazon::EC2::DescribeImageAttribute'            }
+sub describe_images_response_class             { 'Net::Amazon::EC2::DescribeImagesResponse'            }
+sub describe_instance_attribute_response_class { 'Net::Amazon::EC2::DescribeInstanceAttributeResponse' }
+sub describe_key_pairs_response_class          { 'Net::Amazon::EC2::DescribeKeyPairsResponse'          }
+sub describe_tags_class                        { 'Net::Amazon::EC2::DescribeTags'                      }
+sub ebs_block_device_class                     { 'Net::Amazon::EC2::EbsBlockDevice'                    }
+sub ebs_instance_block_device_mapping_class    { 'Net::Amazon::EC2::EbsInstanceBlockDeviceMapping'     }
+sub error_class                                { 'Net::Amazon::EC2::Error'                             }
+sub errors_class                               { 'Net::Amazon::EC2::Errors'                            }
+sub group_set_class                            { 'Net::Amazon::EC2::GroupSet'                          }
+sub instance_block_device_mapping_class        { 'Net::Amazon::EC2::InstanceBlockDeviceMapping'        }
+sub instance_password_class                    { 'Net::Amazon::EC2::InstancePassword'                  }
+sub instance_state_class                       { 'Net::Amazon::EC2::InstanceState'                     }
+sub instance_state_change_class                { 'Net::Amazon::EC2::InstanceStateChange'               }
+sub ip_permission_class                        { 'Net::Amazon::EC2::IpPermission'                      }
+sub ip_range_class                             { 'Net::Amazon::EC2::IpRange'                           }
+sub key_pair_class                             { 'Net::Amazon::EC2::KeyPair'                           }
+sub launch_permission_class                    { 'Net::Amazon::EC2::LaunchPermission'                  }
+sub launch_permission_operation_class          { 'Net::Amazon::EC2::LaunchPermissionOperation'         }
+sub monitored_instance_class                   { 'Net::Amazon::EC2::MonitoredInstance'                 }
+sub placement_response_class                   { 'Net::Amazon::EC2::PlacementResponse'                 }
+sub product_code_class                         { 'Net::Amazon::EC2::ProductCode'                       }
+sub product_instance_response_class            { 'Net::Amazon::EC2::ProductInstanceResponse'           }
+sub region_class                               { 'Net::Amazon::EC2::Region'                            }
+sub reservation_info_class                     { 'Net::Amazon::EC2::ReservationInfo'                   }
+sub reserved_instance_class                    { 'Net::Amazon::EC2::ReservedInstance'                  }
+sub reserved_instance_offering_class           { 'Net::Amazon::EC2::ReservedInstanceOffering'          }
+sub running_instances_class                    { 'Net::Amazon::EC2::RunningInstances'                  }
+sub security_group_class                       { 'Net::Amazon::EC2::SecurityGroup'                     }
+sub snapshot_class                             { 'Net::Amazon::EC2::Snapshot'                          }
+sub snapshot_attribute_class                   { 'Net::Amazon::EC2::SnapshotAttribute'                 }
+sub state_reason_class                         { 'Net::Amazon::EC2::StateReason'                       }
+sub tag_set_class                              { 'Net::Amazon::EC2::TagSet'                            }
+sub user_data_class                            { 'Net::Amazon::EC2::UserData'                          }
+sub user_id_group_pair_class                   { 'Net::Amazon::EC2::UserIdGroupPair'                   }
+sub volume_class                               { 'Net::Amazon::EC2::Volume'                            }
 
 no Moose;
 1;
